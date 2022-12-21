@@ -10,10 +10,10 @@ package:
 
 source:
   url: https://github.com/SCMusson/{{ name }}/archive/v{{ version }}.tar.gz
-  sha256: 0ef4945c6563836ee520c4b5d9476deb06152a83880fddcdf8f782638e23d58f
+  sha256: b51f8dda0b4b6f25dd8584b771bc1251c07779f61a31ee897b8a9f5dc0a690e2
 
 build:
-  number: 0
+  number: 1
   string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}   # [cuda_compiler_version != "None"]
   string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}                                                 # [cuda_compiler_version == "None"]
   skip: true  # [cuda_compiler_version in (undefined, 'None', '10.2')]

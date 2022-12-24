@@ -28,18 +28,18 @@ cd build
 cmake ${CMAKE_ARGS} ${CMAKE_FLAGS} ${SRC_DIR}
 make -j$CPU_COUNT install
 
-cp ${SRC_DIR}/python/myOpenMMSwigHeaders.i ${PREFIX}/include/swig/
+#cp ${SRC_DIR}/python/myOpenMMSwigHeaders.i ${PREFIX}/include/swig/
 
 make -j$CPU_COUNT PythonInstall
 
-rm ${PREFIX}/include/swig/myOpenMMSwigHeaders.i
+#rm ${PREFIX}/include/swig/myOpenMMSwigHeaders.i
 
 # Include test executables too
-mkdir -p ${PREFIX}/share/${PKG_NAME}/tests
-if [[ "$target_platform" == osx* ]]; then
-    find . -name 'Test*' -perm +0111 -type f -exec cp {} ${PREFIX}/share/${PKG_NAME}/tests/ \;
-else
-    find . -name 'Test*' -executable -type f -exec cp {} ${PREFIX}/share/${PKG_NAME}/tests/ \;
-fi
-cp -r tests ${PREFIX}/share/${PKG_NAME}/tests/
-ls -al ${PREFIX}/share/${PKG_NAME}/tests/
+#mkdir -p ${PREFIX}/share/${PKG_NAME}/tests
+#if [[ "$target_platform" == osx* ]]; then
+#    find . -name 'Test*' -perm +0111 -type f -exec cp {} ${PREFIX}/share/${PKG_NAME}/tests/ \;
+#else
+#    find . -name 'Test*' -executable -type f -exec cp {} ${PREFIX}/share/${PKG_NAME}/tests/ \;
+#fi
+#cp -r tests ${PREFIX}/share/${PKG_NAME}/tests/
+#ls -al ${PREFIX}/share/${PKG_NAME}/tests/

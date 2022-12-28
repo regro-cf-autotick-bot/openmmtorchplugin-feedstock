@@ -1,15 +1,14 @@
-{% set name = "openmmtorchplugin" %}
 {% set version = "1.1.0" %}
 
 # see github.com/conda-forge/conda-forge.github.io/issues/1059 for naming discussion
 {% set torch_proc_type = "cuda" if cuda_compiler_version != "None" else "cpu" %}
 
 package:
-  name: {{ name|lower }}
+  name: openmmtorchplugin
   version: {{ version }}
 
 source:
-  url: https://github.com/SCMusson/{{ name }}/archive/v{{ version }}.tar.gz
+  url: https://github.com/SCMusson/openmmtorchplugin/archive/v{{ version }}.tar.gz
   sha256: b51f8dda0b4b6f25dd8584b771bc1251c07779f61a31ee897b8a9f5dc0a690e2
 
 build:
@@ -25,7 +24,7 @@ build:
     - lib/
     - {{ SP_DIR }}/torch/lib
   run_exports:
-    - {{ pin_subpackage( name|lower ) }}
+    - {{ pin_subpackage( "openmmtorchplugin" ) }}
 
 requirements:
   build:

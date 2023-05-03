@@ -1,4 +1,4 @@
-{% set version = "1.1.0" %}
+{% set version = "1.1.1" %}
 
 # see github.com/conda-forge/conda-forge.github.io/issues/1059 for naming discussion
 {% set torch_proc_type = "cuda" if cuda_compiler_version != "None" else "cpu" %}
@@ -9,12 +9,12 @@ package:
 
 source:
   url: https://github.com/SCMusson/openmmtorchplugin/archive/v{{ version }}.tar.gz
-  sha256: b51f8dda0b4b6f25dd8584b771bc1251c07779f61a31ee897b8a9f5dc0a690e2
+  sha256: 276f4238d7c6d869daa4f32ecc23bb8f29c58f3994a78f2c414d1c0357ff7d25
 
 build:
-  number: 3
-  string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}   # [cuda_compiler_version != "None"]
-  string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}                                                 # [cuda_compiler_version == "None"]
+  number: 0
+  string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
+  string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # as of pytorch 1.13, conda-forge only builds for CUDA 11.2+, see
   # https://github.com/conda-forge/conda-forge-pinning-feedstock/issues/3491
   skip: true  # [cuda_compiler_version in (undefined, "None", "10.2", "11.0", "11.1")]

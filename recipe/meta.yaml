@@ -1,10 +1,8 @@
-{% set version = "1.1.4" %}
-
-# see github.com/conda-forge/conda-forge.github.io/issues/1059 for naming discussion
-{% set torch_proc_type = "cuda" if cuda_compiler_version != "None" else "cpu" %}
+{% set name = "openmmtorchplugin" %}
+{% set version = "1.1.8" %}
 
 package:
-  name: openmmtorchplugin
+  name: {{ name }}
   version: {{ version }}
 
 source:
@@ -13,46 +11,34 @@ source:
 
 build:
   number: 0
-  #string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
-  #string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
-  # as of pytorch 1.13, conda-forge only builds for CUDA 11.2+, see
-  # https://github.com/conda-forge/conda-forge-pinning-feedstock/issues/3491
   skip: true  # [cuda_compiler_version in (undefined, "None", "10.2", "11.0", "11.1")]
   skip: true  # [not unix]
-  # Set rpaths we need to link against libtorch.so, but it is located in site-packages
   rpaths:
     - lib/
     - lib/plugins/
   #  - {{ SP_DIR }}/torch/lib
   run_exports:
-    - {{ pin_subpackage( "openmmtorchplugin" ) }}
-  missing_dso_whitelist:
-    - "*/libcuda.*"
+    - {{ pin_subpackage(name) }}
 
 requirements:
   build:
     - {{ compiler('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('cuda') }}  # [cuda_compiler_version not in (undefined, 'None')]
-    #- {{ cdt('mesa-libgl-devel') }}  # [linux]
-    #- openmm 7.7
-    - cmake
     - make
-    - swig 4.0.2
+    - cmake
+    - swig
+
   host:
-    - openmm 7.7
-    - pip
+    - openmm
     - python
-    # First for global version pin, second for build variant
-    #- pytorch
-    #- pytorch =*={{ torch_proc_type }}*
+    - pip
+    - setuptools
+
   run:
+    # openmm package is missing a run_export as of 9 June 2022
     - {{ pin_compatible('openmm', min_pin='x.x', max_pin='x.x') }}
     - python
-  #-run_constrained:
-    # additional run constraint to the one from the (version-only) run_export;
-    # constraining the CPU builds to CPU pytorch isn't 100% necessary, but cleaner
-    #- pytorch =*={{ torch_proc_type }}*
 
 test:
   imports:
@@ -73,3 +59,4 @@ about:
 extra:
   recipe-maintainers:
     - SCMusson
+    - degiacom

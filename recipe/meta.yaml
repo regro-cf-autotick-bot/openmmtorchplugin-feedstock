@@ -12,7 +12,7 @@ source:
   sha256: 1d014dfc02ad0e424db2354f7e3c2a7d1e0a491e6bcdadbcc0d1ca058f60ed23
 
 build:
-  number: 0
+  number: 1
   string: cuda{{ cuda_compiler_version | replace('.', '') }}py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version != "None"]
   string: cpu_py{{ CONDA_PY }}h{{ PKG_HASH }}_{{ PKG_BUILDNUM }}  # [cuda_compiler_version == "None"]
   # as of pytorch 1.13, conda-forge only builds for CUDA 11.2+, see
